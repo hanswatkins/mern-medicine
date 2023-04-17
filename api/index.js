@@ -1,16 +1,21 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const app = express();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-
+const User = require('./models/User');
+const Medicine = require('./models/Medicine');
 require('dotenv').config();
 const mongoURI = process.env.DATABASE_URL;
 
+const salt = bcrypt.genSaltSync(10);
+const secret = 'asdfkjahselrkjhk5jh3456435jksdnlgsd';
+
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect(mongoURI);
 
@@ -61,4 +66,37 @@ app.post('/logout', (req, res) => {
 	res.cookie('token', '').json('ok');
 });
 
-app.listen(4000);
+// create medicine
+app.post('/medicine', async (req, res) => {
+	const { token } = req.cookies;
+	jwt.verify(token, secret, {}, async (err, info) => {
+		if (err) throw err;
+		console.log(req.body)
+		const { title, instructions, notes, time, type } = req.body;
+		const medicine = await Medicine.create({
+			title,
+			instructions,
+			notes,
+			time,
+			type,
+			patient: info.id,
+		});
+		console.log(medicine)
+		res.json({ medicine });
+
+	});
+});
+
+// get medicine
+app.get('/medicine', async (req, res) => {
+	res.json(
+		await Medicine.find()
+			.populate('title' /*['username']*/)
+			.sort({ createdAt: -1 })
+			.limit(20)
+	);
+});
+
+app.listen(4000, () => {
+	console.log('⭐️ Medicine Tracker listening on port 4000 ⭐️');
+});
