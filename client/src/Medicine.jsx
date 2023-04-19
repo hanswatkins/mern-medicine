@@ -9,16 +9,15 @@ const Medicine = ({ _id, title, instructions, notes, patient, time, type }) => {
 					<img src={'http://localhost:4000/' + cover} alt='' />
 				</Link>
 			</div> */}
-			<div className='texts'>
-				<Link to={`/medicine/${_id}`}>
+			<Link to={`/medicine/${_id}`}><div className='texts'>
+				
 					<h2>{title}</h2>
-				</Link>
-				<p className='type'>
-					<a className='type'>{type}</a>
-				</p>
+				
 				<p className='instructions'>{instructions}</p>
+				<p className='notes'>{notes}</p>
 				<p className='time'>{time}</p>
-			</div>
+				<p className='type'>{type}</p>
+			</div></Link>
 		</div>
 	);
 };

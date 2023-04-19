@@ -21,6 +21,8 @@ function App() {
 					<Route path={'/register'} element={<RegisterPage />} />
 					
 					<Route path={'/medicine'} element={<MedicinePage />} />
+
+					<Route path={'/medicine/:id'} element={<MedicinePage />} />
 					
 					<Route path={'/create'} element={<CreateMedicine />} />
 

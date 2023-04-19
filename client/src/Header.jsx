@@ -28,7 +28,7 @@ const Header = () => {
 	return (
 		<header>
 			<Link to='/' className='logo'>
-				HomeoTracker
+				<h1>ManyMeds</h1>
 			</Link>
 			<nav>
 				{username && (

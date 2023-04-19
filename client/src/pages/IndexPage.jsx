@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import Medicine from '../Medicine';
 
 const IndexPage = () => {
-	const [medicine, setMedicine] = useState([]);
+	const [medicineInfo, setMedicine] = useState([]);
+	const { userInfo } = useContext(UserContext);
 	useEffect(() => {
 		fetch('http://localhost:4000/medicine').then((response) => {
 			response.json().then((medicine) => {
 				setMedicine(medicine);
+				// console.log('patient id: ', medicine), console.log('userInfo: ', token);
 			});
 		});
 	}, []);
+
 	return (
-        <>
-            {/* <p>IndexPage.js</p> */}
-			{medicine.length > 0 &&
-				medicine.map((medicine, index) => <Medicine {...medicine} key={index} />)}
+		<>
+			{/* <h1 className='greeting'>Hi {userInfo.username}</h1> */}
+			{/* {console.log(medicineInfo._id === userInfo.id)} */}
+			{/* <p>IndexPage.js</p> */}
+			{medicineInfo.length > 0 &&
+				medicineInfo.map((medicine, index) => (
+					<Medicine {...medicine} key={index} />
+				))}
 		</>
 	);
 };
