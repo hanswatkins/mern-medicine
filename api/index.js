@@ -71,7 +71,7 @@ app.post('/medicine', async (req, res) => {
 	const { token } = req.cookies;
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
-		console.log(req.body)
+		console.log(req.body);
 		const { title, instructions, notes, time, type } = req.body;
 		const medicine = await Medicine.create({
 			title,
@@ -81,9 +81,8 @@ app.post('/medicine', async (req, res) => {
 			type,
 			patient: info.id,
 		});
-		console.log(medicine)
+		console.log(medicine);
 		res.json({ medicine });
-
 	});
 });
 
@@ -95,6 +94,21 @@ app.get('/medicine', async (req, res) => {
 			.sort({ createdAt: -1 })
 			.limit(20)
 	);
+});
+
+// get medicine by ID
+app.get('/medicine/:id', async (req, res) => {
+	const { id } = req.params;
+	const medicine = await Medicine.findById(id).populate(
+		'title',
+		'instructions',
+		// 'notes',
+		// 'time',
+		// 'type',
+		// ['patient']
+	);
+	
+	res.json(medicine);
 });
 
 app.listen(4000, () => {
