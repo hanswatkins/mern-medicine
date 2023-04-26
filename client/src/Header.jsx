@@ -26,16 +26,16 @@ const Header = () => {
 	const username = userInfo?.username;
 
 	return (
-		<header>
-			<Link to='/' className='logo'>
+		<header className='flex justify-between mx-2 my-2'>
+			<Link to='/' className='font-bold text-2xl'>
 				<h1>ManyMeds</h1>
 			</Link>
-			<nav>
+			<nav className='flex gap-3 items-center'>
 				{username && (
-					<>
-						<Link to='/create'>Add New Medicine</Link>
+					<div className='[&>*]:bg-slate-300 [&>*]:py-1 [&>*]:px-6 [&>*]:rounded-lg [&>*]:text-xs [&>*]:mx-1'>
+						<Link to='/create'>Add Medicine</Link>
 						<a onClick={logout}>Log out</a>
-					</>
+					</div>
 				)}
 				{!username && (
 					<>

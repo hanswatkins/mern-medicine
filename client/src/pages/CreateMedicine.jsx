@@ -9,10 +9,52 @@ const CreateMedicine = () => {
 	const [title, setTitle] = useState('');
 	const [instructions, setInstructions] = useState('');
 	const [notes, setNotes] = useState('');
-	const [time, setTime] = useState(timeOptions[0]);
+	const [time, setTime] = useState([]);
 	const [type, setType] = useState(typeOptions[0]);
 	const [redirect, setRedirect] = useState(false);
 
+	const TimeCheckBoxes = () => {
+		return (
+			<div className='flex justify-between'>
+				<label>
+					<input
+						type='checkbox'
+						value='Morning'
+						checked={time.includes('Morning')}
+						onChange={handleCheckboxChange}
+						/>
+						Morning
+				</label>
+				<label>
+					<input
+						type='checkbox'
+						value='Afternoon'
+						checked={time.includes('Afternoon')}
+						onChange={handleCheckboxChange}
+						/>
+						Afternoon
+				</label>
+				<label>
+					<input
+						type='checkbox'
+						value='Evening'
+						checked={time.includes('Evening')}
+						onChange={handleCheckboxChange}
+						/>
+						Evening
+				</label>
+			</div>
+		);
+	};
+
+	function handleCheckboxChange(event) {
+		const value = event.target.value;
+		if (time.includes(value)) {
+			setTime(time.filter((item) => item !== value));
+		} else {
+			setTime([...time, value]);
+		}
+	}
 
 	async function createNewMedicine(ev) {
 		ev.preventDefault();
@@ -48,8 +90,8 @@ const CreateMedicine = () => {
 	}
 
 	return (
-		<div className="form-page">
-			<form onSubmit={createNewMedicine}>
+		<div className=''>
+			<form onSubmit={createNewMedicine} className='flex flex-col mx-8 text-center [&>*]:p-2'>
 				<input
 					type='title'
 					placeholder={'Title'}
@@ -68,23 +110,13 @@ const CreateMedicine = () => {
 					value={notes}
 					onChange={(ev) => setNotes(ev.target.value)}
 				/>
-				<select
-					type={'administration time'}
-					placeholder={'Time'}
-					value={time}
-					onChange={(e) => setTime(e.target.value)}
-				>
-					{timeOptions.map((value) => (
-						<option value={value} key={value}>
-							{value}
-						</option>
-					))}
-				</select>
+				<TimeCheckBoxes />
 				<select
 					type={'type'}
 					placeholder={'Type'}
 					value={type}
 					onChange={(e) => setType(e.target.value)}
+					className=''
 				>
 					{typeOptions.map((value) => (
 						<option value={value} key={value}>
@@ -92,7 +124,6 @@ const CreateMedicine = () => {
 						</option>
 					))}
 				</select>
-			
 				<button style={{ marginTop: '5px' }}>Add Medicine</button>
 			</form>
 		</div>

@@ -14,11 +14,14 @@ const IndexPage = () => {
 		});
 	}, []);
 
+	
+
 	return (
 		<>
 			{/* <h1 className='greeting'>Hi {userInfo.username}</h1> */}
 			{/* {console.log(medicineInfo._id === userInfo.id)} */}
 			{/* <p>IndexPage.js</p> */}
+			<h1 className='mx-6 my-8 text-xl font-light'>Hi {userInfo.username}, here are your meds!</h1>
 			{medicineInfo.length > 0 &&
 				medicineInfo.map((medicine, index) => (
 					<Medicine {...medicine} key={index} />

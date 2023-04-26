@@ -1,4 +1,4 @@
-*,
+/* *,
 *::before,
 *::after {
 	box-sizing: border-box;
@@ -33,6 +33,10 @@ button,
 textarea,
 select {
 	font: inherit;
+}
+
+ul {
+	padding-inline-start: 0px;
 }
 
 select {
@@ -82,11 +86,11 @@ a {
 		13.5px 27px 34px -1.9px hsl(var(--shadow-color) / 0.27),
 		18.5px 37.1px 46.6px -2.2px hsl(var(--shadow-color) / 0.27),
 		25px 50px 62.9px -2.5px hsl(var(--shadow-color) / 0.27);
-}
+} */
 
 /* Begin CSS */
 
-header {
+/* header {
 	display: flex;
 	height: 10vh;
 	justify-content: space-between;
@@ -133,30 +137,109 @@ form {
 }
 
 .medicine {
+	border: 1px solid #979797;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 	margin: auto;
-	width: 80%;
+	width: 20%;
 	padding: 15px;
 	border-radius: 10px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-		0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-		0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+	margin-bottom: 10px;
 }
 
 .medicine-page {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	margin: auto;
 	width: 70%;
 	border-radius: 10px;
-	
 }
+
+.medicine-page .time {
+	display: flex;
+	gap: 20px;
+	list-style: none;
+	margin: 10px 0px;
+
+}
+
+.medicine-page .time > li {
+	background-color: #979797;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 4px 10px;
+	border-radius: 10px;
+	border-radius: 20px;
+	color: white;
+	border: 1px solid #595959;
+}
+
+div.edit-row {
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	margin: 15px auto;
+	gap: 20px;
+}
+
+.edit-btn {
+	background-color: #333;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	text-decoration: none;
+	color: white;
+	padding: 15px 30px;
+	border-radius: 5px;
+	flex: 1;
+	max-width: 100px;
+	justify-content: center;
+	font-size: 0.7rem;
+}
+.delete-btn {
+	background-color: hsl(348, 100%, 61%);
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	text-decoration: none;
+	color: white;
+	padding: 15px 30px;
+	border-radius: 5px;
+	flex: 1;
+	max-width: 100px;
+	justify-content: center;
+	font-size: 0.7rem;
+}
+
+.medicine-details p {
+	margin-top: 5px;
+}
+
+.medicine .time-pill {
+	background-color: #979797;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 20px;
+	color: white;
+	border: 1px solid #595959;
+}
+
+.redirect-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+} */
 
 /* .greeting {
 	display: flex;
 	justify-content: left;
 	align-items: center;
 } */
+
+
