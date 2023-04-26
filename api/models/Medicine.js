@@ -5,7 +5,7 @@ const MedicineSchema = new Schema({
 	title: String,
 	instructions: String,
 	notes: String,
-	time: String,
+	time: [String],
 	type: String,
 	patient: { type: Schema.Types.ObjectId, ref: 'User' },
 },

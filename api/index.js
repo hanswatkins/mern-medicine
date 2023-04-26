@@ -101,13 +101,20 @@ app.get('/medicine/:id', async (req, res) => {
 	const { id } = req.params;
 	const medicine = await Medicine.findById(id).populate(
 		'title',
-		'instructions',
+		'instructions'
 		// 'notes',
 		// 'time',
 		// 'type',
 		// ['patient']
 	);
-	
+
+	res.json(medicine);
+});
+
+// delete medicine by ID
+app.delete('/delete/:id', async (req, res) => {
+	const { id } = req.params;
+	const medicine = await Medicine.findByIdAndDelete(id);
 	res.json(medicine);
 });
 
