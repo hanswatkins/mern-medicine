@@ -118,6 +118,37 @@ app.delete('/delete/:id', async (req, res) => {
 	res.json(medicine);
 });
 
+// edit medicine
+app.put('/medicine/:id', async (req, res) => {
+	const { token } = req.cookies;
+	jwt.verify(token, secret, {}, async (err, info) => {
+		if (err) throw err;
+		console.log(req.body);
+		const { title, instructions, notes, time, type } = req.body;
+		const { id } = req.params;
+		const medicine = await Medicine.findById(id);
+
+		const isPatient =
+			JSON.stringify(medicine.patient) === JSON.stringify(info.id);
+
+		if (!isPatient) {
+			return res
+				.status(400)
+				.json(
+					'This medicine does not belong to you, please contact hanswatkins@gmail.com about this error'
+				);
+		}
+		await medicine.updateOne({
+			title,
+			instructions,
+			notes,
+			time,
+			type,
+		});
+		res.json(medicine);
+	});
+});
+
 app.listen(4000, () => {
 	console.log('⭐️ Medicine Tracker listening on port 4000 ⭐️');
 });
