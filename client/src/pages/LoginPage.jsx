@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 
@@ -33,9 +34,21 @@ const LoginPage = () => {
 	}
 
 	return (
-		<form className='login' onSubmit={login}>
-			<h1>Login</h1>
+		<form
+			className='min-h-screen flex flex-col justify-center px-16 py-24 lg:mx-auto lg:max-w-lg'
+			onSubmit={login}
+		>
+			<h1 className='font-light text-xl text-center mt-7'>
+				Log in to view your meds
+			</h1>
+			<Link
+				to='/register'
+				className='italic text-center text-slate-400 hover:text-green-500 text-xs my-1'
+			>
+				New user? Click here to get started.
+			</Link>
 			<input
+				className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300'
 				type='text'
 				placeholder='Username'
 				value={username}
@@ -43,13 +56,16 @@ const LoginPage = () => {
 				onChange={(ev) => setUsername(ev.target.value)}
 			/>
 			<input
+				className='px-3 py-2 rounded-full shadow-inner border border-gray-300'
 				type='password'
 				placeholder='Password'
 				value={password}
 				autoComplete='true'
 				onChange={(ev) => setPassword(ev.target.value)}
 			/>
-			<button>Login</button>
+			<button className='bg-slate-300 py-1 px-6 rounded-lg text-xs mx-6 my-6'>
+				Login
+			</button>
 		</form>
 	);
 };

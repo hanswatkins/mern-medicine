@@ -26,21 +26,35 @@ const Header = () => {
 	const username = userInfo?.username;
 
 	return (
-		<header className='flex justify-between mx-2 my-2'>
-			<Link to='/' className='font-bold text-2xl'>
+		<header className='flex justify-between mx-2 my-4'>
+			<Link to='/' className='font-bold text-2xl opacity-70'>
 				<h1>ManyMeds</h1>
 			</Link>
-			<nav className='flex gap-3 items-center'>
+			<nav>
 				{username && (
-					<div className='[&>*]:bg-slate-300 [&>*]:py-1 [&>*]:px-6 [&>*]:rounded-lg [&>*]:text-xs [&>*]:mx-1'>
-						<Link to='/create'>Add Medicine</Link>
-						<a onClick={logout}>Log out</a>
+					<div className='[&>*]:text-xs flex gap-3'>
+						<Link
+							to='/create'
+							className='rounded-lg py-2 px-5 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)]'
+						>
+							<p>Add Medicine</p>
+						</Link>
+						<a
+							onClick={logout}
+							className='rounded-lg py-2 px-5 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] hover:cursor-pointer'
+						>
+							<p>Log out</p>
+						</a>
 					</div>
 				)}
 				{!username && (
 					<>
-						<Link to='/login'>Login</Link>
-						<Link to='/register'>Register</Link>
+						<Link to='/login'>
+							<p>Login</p>
+						</Link>
+						<Link to='/register'>
+							<p>Register</p>
+						</Link>
 					</>
 				)}
 			</nav>

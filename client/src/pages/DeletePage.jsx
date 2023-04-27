@@ -7,10 +7,10 @@ const DeletePage = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			navigate('/', { replace: true });
-		}, 500);
+		}, 1000);
 	}, []);
 	return (
-		<div className='redirect-page'>
+		<div className='flex flex-col justify-center items-center h-48 text-xl font-thin'>
 			<p>Medicine deleted</p>
 			<p>Redirecting...</p>
 		</div>

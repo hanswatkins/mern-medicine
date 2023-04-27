@@ -1,17 +1,59 @@
-import { React, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { React, useEffect, useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const timeOptions = ['Morning', 'Afternoon', 'Evening'];
 const typeOptions = ['Homeopathic', 'Medication', 'Supplement'];
 
-const CreateMedicine = () => {
+const EditMedicine = () => {
+	const { id } = useParams();
 	const [title, setTitle] = useState('');
 	const [instructions, setInstructions] = useState('');
 	const [notes, setNotes] = useState('');
 	const [time, setTime] = useState([]);
 	const [type, setType] = useState(typeOptions[0]);
 	const [redirect, setRedirect] = useState(false);
+
+	useEffect(() => {
+		fetch('http://localhost:4000/medicine/' + id).then((response) => {
+			response.json().then((medicineInfo) => {
+				setTitle(medicineInfo.title);
+				setInstructions(medicineInfo.instructions);
+				setNotes(medicineInfo.notes);
+				setTime(medicineInfo.time);
+				setType(medicineInfo.type);
+			});
+		});
+	}, []);
+
+	async function updateMedicine(ev) {
+		ev.preventDefault();
+		const data = {
+			title,
+			instructions,
+			notes,
+			time,
+			type,
+		};
+
+		console.log(data);
+
+		try {
+			const response = await axios.put('http://localhost:4000/medicine/' + id, data, {
+				withCredentials: true,
+			});
+			if (response.status === 200) {
+				setRedirect(true);
+			}
+		} catch (error) {
+			console.error(error);
+        }
+        
+	}
+
+	if (redirect) {
+		return <Navigate to={'/medicine/' + id} />;
+	}
 
 	const TimeCheckBoxes = () => {
 		return (
@@ -56,43 +98,10 @@ const CreateMedicine = () => {
 		}
 	}
 
-	async function createNewMedicine(ev) {
-		ev.preventDefault();
-
-		const data = {
-			title,
-			instructions,
-			notes,
-			time,
-			type,
-		};
-
-		console.log(data);
-
-		try {
-			const response = await axios.post(
-				'http://localhost:4000/medicine',
-				data,
-				{
-					withCredentials: true,
-				}
-			);
-			if (response.status === 200) {
-				setRedirect(true);
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	}
-
-	if (redirect) {
-		return <Navigate to={'/'} />;
-	}
-
 	return (
 		<div className=''>
 			<form
-				onSubmit={createNewMedicine}
+				onSubmit={updateMedicine}
 				className='flex flex-col mx-8 text-center [&>*]:p-2'
 			>
 				<input
@@ -139,4 +148,4 @@ const CreateMedicine = () => {
 	);
 };
 
-export default CreateMedicine;
+export default EditMedicine;
