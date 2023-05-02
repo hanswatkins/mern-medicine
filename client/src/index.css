@@ -8,10 +8,12 @@ li {
 	opacity: 70%;
 }
 
-html {
-	height: calc(100vh - 30px);
+div.background {
+	overflow: hidden;
 }
 
 * {
 	user-select: none;
 }
+
+

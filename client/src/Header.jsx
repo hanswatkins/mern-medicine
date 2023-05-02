@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
 
 const Header = () => {
 	const { setUserInfo, userInfo } = useContext(UserContext);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		fetch('http://localhost:4000/profile', {
@@ -21,6 +22,7 @@ const Header = () => {
 			method: 'POST',
 		});
 		setUserInfo(null);
+		navigate('/login');
 	}
 
 	const username = userInfo?.username;
@@ -33,12 +35,7 @@ const Header = () => {
 			<nav>
 				{username && (
 					<div className='[&>*]:text-xs flex gap-3'>
-						<Link
-							to='/create'
-							className='rounded-lg py-2 px-5 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)]'
-						>
-							<p>Add Medicine</p>
-						</Link>
+					
 						<a
 							onClick={logout}
 							className='rounded-lg py-2 px-5 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] hover:cursor-pointer'
@@ -48,14 +45,14 @@ const Header = () => {
 					</div>
 				)}
 				{!username && (
-					<>
+					<div className='flex gap-2'>
 						<Link to='/login'>
 							<p>Login</p>
 						</Link>
 						<Link to='/register'>
 							<p>Register</p>
 						</Link>
-					</>
+					</div>
 				)}
 			</nav>
 		</header>

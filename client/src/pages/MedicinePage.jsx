@@ -44,9 +44,7 @@ const MedicinePage = () => {
 					</li>
 				</ul>
 				<ul className='flex justify-between mt-3'>
-					<li> {medicineInfo.time[0]}</li>
-					<li> {medicineInfo.time[1]}</li>
-					<li> {medicineInfo.time[2]}</li>
+					<li> {medicineInfo.time.join(' | ')}</li>
 				</ul>
 			</div>
 			{userInfo.id === medicineInfo.patient && (
