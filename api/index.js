@@ -86,14 +86,39 @@ app.post('/medicine', async (req, res) => {
 	});
 });
 
-// get medicine
+// // get medicine
+// app.get('/medicine', async (req, res) => {
+// 	res.json(
+// 		await Medicine.find()
+// 			.populate('title' /*['username']*/)
+// 			.limit(20)
+// 	);
+// });
+
 app.get('/medicine', async (req, res) => {
-	res.json(
-		await Medicine.find()
-			.populate('title' /*['username']*/)
-			.sort({ createdAt: -1 })
-			.limit(20)
-	);
+	try {
+		const { token } = req.cookies;
+		const { id } = jwt.verify(token, secret);
+
+		// Find the user in the database
+		const userDoc = await User.findById(id);
+
+		// If the user is found, return their medicine data
+		if (userDoc) {
+			const userSpecificMedicineData = await Medicine.find({
+				patient: userDoc._id,
+			})
+				.populate('title' /*['username']*/)
+				.sort({ createdAt: -1 })
+				.limit(20);
+			res.json(userSpecificMedicineData);
+		} else {
+			res.status(400).json('User not found');
+		}
+	} catch (err) {
+		console.error(err);
+		res.status(500).json('Internal server error');
+	}
 });
 
 // get medicine by ID
