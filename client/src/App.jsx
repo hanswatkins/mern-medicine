@@ -7,16 +7,18 @@ import MedicinePage from './pages/MedicinePage';
 import DeletePage from './pages/DeletePage';
 import CreateMedicine from './pages/CreateMedicine';
 import TakeMeds from './pages/TakeMeds';
-import AmMeds from './pages/AmMeds'
-import PmMeds from './pages/PmMeds'
-import EveningMeds from './pages/EveningMeds'
+import AmMeds from './pages/AmMeds';
+import PmMeds from './pages/PmMeds';
+import EveningMeds from './pages/EveningMeds';
 import { Route, Routes } from 'react-router-dom';
 import { UserContextProvider } from './UserContext';
 import EditMedicine from './pages/EditMedicine';
+import AnimatedBackground from './AnimatedBackground';
 
 function App() {
 	return (
 		<div className=''>
+			<AnimatedBackground />
 			<UserContextProvider>
 				<Routes>
 					<Route path='/' element={<Layout />}>
@@ -32,7 +34,6 @@ function App() {
 						<Route path='/take-meds/am' element={<AmMeds />} />
 						<Route path='/take-meds/pm' element={<PmMeds />} />
 						<Route path='/take-meds/evening' element={<EveningMeds />} />
-
 					</Route>
 				</Routes>
 			</UserContextProvider>

@@ -15,9 +15,10 @@ const CreateMedicine = () => {
 
 	const TimeCheckBoxes = () => {
 		return (
-			<div className='flex justify-between'>
+			<div className='flex justify-between md:justify-center lg:justify-start lg:gap-10'>
 				<label className='flex gap-1 text-gray-600 accent-red-300 p-2 [&>*]:text-xs'>
 					<input
+						className='cursor-pointer'
 						type='checkbox'
 						value='Morning'
 						checked={time.includes('Morning')}
@@ -27,6 +28,7 @@ const CreateMedicine = () => {
 				</label>
 				<label className='flex gap-1 text-gray-600 accent-red-300 p-2'>
 					<input
+						className='cursor-pointer'
 						type='checkbox'
 						value='Afternoon'
 						checked={time.includes('Afternoon')}
@@ -36,6 +38,7 @@ const CreateMedicine = () => {
 				</label>
 				<label className='flex gap-1 text-gray-600 accent-red-300 p-2'>
 					<input
+						className='cursor-pointer'
 						type='checkbox'
 						value='Evening'
 						checked={time.includes('Evening')}
@@ -90,27 +93,27 @@ const CreateMedicine = () => {
 	}
 
 	return (
-		<div className=''>
+		<div className='flex justify-center items-center bg-gray-300 my-20 p-5 mx-5 rounded-xl'>
 			<form
 				onSubmit={createNewMedicine}
 				className='flex flex-col mx-8 text-center [&>*]:p-2'
 			>
 				<input
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='title'
 					placeholder={'Title'}
 					value={title}
 					onChange={(ev) => setTitle(ev.target.value)}
 				/>
 				<input
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='instructions'
 					placeholder={'Instructions'}
 					value={instructions}
 					onChange={(ev) => setInstructions(ev.target.value)}
 				/>
 				<input
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='notes'
 					placeholder={'Notes'}
 					value={notes}
@@ -118,7 +121,7 @@ const CreateMedicine = () => {
 				/>
 				<TimeCheckBoxes />
 				<select
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 text-gray-500 focus:outline-slate-200 cursor-pointer'
 					type={'type'}
 					placeholder={'Type'}
 					value={type}
@@ -131,7 +134,7 @@ const CreateMedicine = () => {
 					))}
 				</select>
 
-				<button class='rounded-lg py-4 my-10 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] text-gray-900'>
+				<button class='rounded-lg bg-gray-200 py-4 my-10 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] text-gray-900'>
 					<p>Create</p>
 				</button>
 			</form>

@@ -32,10 +32,10 @@ const AmMeds = () => {
 					You have no medications to take in the Morning.
 				</h1>
 				<Link
-					to={'/'}
+					to={'/take-meds'}
 					className='mx-5 my-6 bg-blue-100 rounded-lg py-2 px-5 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)]'
 				>
-					<p>Go Home</p>
+					<p>Go Back</p>
 				</Link>
 			</div>
 		);
