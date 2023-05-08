@@ -11,6 +11,8 @@ const CreateMedicine = () => {
 	const [notes, setNotes] = useState('');
 	const [time, setTime] = useState([]);
 	const [type, setType] = useState(typeOptions[0]);
+	const [doctor, setDoctor] = useState('');
+	const [doctorSpecialty, setDoctorSpecialty] = useState('');
 	const [redirect, setRedirect] = useState(false);
 
 	const TimeCheckBoxes = () => {
@@ -68,6 +70,7 @@ const CreateMedicine = () => {
 			notes,
 			time,
 			type,
+			doctor,
 		};
 
 		console.log(data);
@@ -93,7 +96,7 @@ const CreateMedicine = () => {
 	}
 
 	return (
-		<div className='flex justify-center items-center bg-gray-300 my-20 p-5 mx-5 rounded-xl'>
+		<div className='flex justify-center items-center p-5 mx-5 rounded-xl'>
 			<form
 				onSubmit={createNewMedicine}
 				className='flex flex-col mx-8 text-center [&>*]:p-2'
@@ -133,6 +136,20 @@ const CreateMedicine = () => {
 						</option>
 					))}
 				</select>
+				<input
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
+					type='doctor'
+					placeholder={'Prescribing Doctor Name'}
+					value={doctor}
+					onChange={(ev) => setDoctor(ev.target.value)}
+				/>
+				<input
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
+					type='doctor specialty'
+					placeholder={'Doctor Specialty'}
+					value={doctorSpecialty}
+					onChange={(ev) => setDoctorSpecialty(ev.target.value)}
+				/>
 
 				<button class='rounded-lg bg-gray-200 py-4 my-10 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] text-gray-900'>
 					<p>Create</p>

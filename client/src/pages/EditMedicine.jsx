@@ -11,6 +11,8 @@ const EditMedicine = () => {
 	const [instructions, setInstructions] = useState('');
 	const [notes, setNotes] = useState('');
 	const [time, setTime] = useState([]);
+	const [doctor, setDoctor] = useState('');
+	const [doctorSpecialty, setDoctorSpecialty] = useState('');
 	const [type, setType] = useState(typeOptions[0]);
 	const [redirect, setRedirect] = useState(false);
 
@@ -34,21 +36,25 @@ const EditMedicine = () => {
 			notes,
 			time,
 			type,
+			doctor,
 		};
 
 		console.log(data);
 
 		try {
-			const response = await axios.put('http://localhost:4000/medicine/' + id, data, {
-				withCredentials: true,
-			});
+			const response = await axios.put(
+				'http://localhost:4000/medicine/' + id,
+				data,
+				{
+					withCredentials: true,
+				}
+			);
 			if (response.status === 200) {
 				setRedirect(true);
 			}
 		} catch (error) {
 			console.error(error);
-        }
-        
+		}
 	}
 
 	if (redirect) {
@@ -105,21 +111,21 @@ const EditMedicine = () => {
 				className='flex flex-col mx-8 text-center [&>*]:p-2'
 			>
 				<input
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='title'
 					placeholder={'Title'}
 					value={title}
 					onChange={(ev) => setTitle(ev.target.value)}
 				/>
 				<input
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='instructions'
 					placeholder={'Instructions'}
 					value={instructions}
 					onChange={(ev) => setInstructions(ev.target.value)}
 				/>
 				<input
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='notes'
 					placeholder={'Notes'}
 					value={notes}
@@ -127,7 +133,7 @@ const EditMedicine = () => {
 				/>
 				<TimeCheckBoxes />
 				<select
-					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 text-gray-500'
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 text-gray-500 focus:outline-slate-200'
 					type={'type'}
 					placeholder={'Type'}
 					value={type}
@@ -139,6 +145,20 @@ const EditMedicine = () => {
 						</option>
 					))}
 				</select>
+				<input
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200 '
+					type='doctor'
+					placeholder={'Prescribing Doctor Name'}
+					value={doctor}
+					onChange={(ev) => setDoctor(ev.target.value)}
+				/>
+				<input
+					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
+					type='doctor specialty'
+					placeholder={'Doctor Specialty'}
+					value={doctorSpecialty}
+					onChange={(ev) => setDoctorSpecialty(ev.target.value)}
+				/>
 
 				<button class='rounded-lg py-4 my-10 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] text-gray-900'>
 					<p>Create</p>

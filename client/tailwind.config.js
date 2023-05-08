@@ -7,6 +7,9 @@ export default {
 			animation: {
 				blob: 'blob 10s infinite',
 			},
+			fontFamily: {
+				sans: ['Proxima Nova'],
+			},
 			keyframes: {
 				blob: {
 					'0%, 100%': {

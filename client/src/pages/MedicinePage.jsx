@@ -42,6 +42,12 @@ const MedicinePage = () => {
 					<li>
 						<i>Medication type:</i> {medicineInfo.type}
 					</li>
+					<li>
+						<i>Prescriber:</i> {medicineInfo.doctor}
+					</li>
+					<li>
+						<i>Prescriber Specialty:</i> {medicineInfo.doctorSpecialty}
+					</li>
 				</ul>
 				<ul className='flex justify-between mt-3'>
 					<li> {medicineInfo.time.join(' | ')}</li>

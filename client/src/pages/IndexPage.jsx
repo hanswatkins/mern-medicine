@@ -22,11 +22,11 @@ const IndexPage = () => {
 
 	return (
 		<div className='my-8 py-2'>
-			<h1 className='mx-6 text-xl font-light opacity-70'>
+			<h1 className='mx-6 text-2xl font-light opacity-70'>
 				Hi {userInfo.username}! Welcome back.
 			</h1>
 
-			<h2 className='mx-6 my-2 text-md font-light opacity-70'>
+			<h2 className='mx-6 my-2 text-lg font-light opacity-70'>
 				What would you like to do?
 			</h2>
 
