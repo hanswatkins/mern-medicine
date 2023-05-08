@@ -72,13 +72,15 @@ app.post('/medicine', async (req, res) => {
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
 		console.log(req.body);
-		const { title, instructions, notes, time, type } = req.body;
+		const { title, instructions, notes, time, type, doctor, doctorSpecialty } = req.body;
 		const medicine = await Medicine.create({
 			title,
 			instructions,
 			notes,
 			time,
 			type,
+			doctor,
+			doctorSpecialty,
 			patient: info.id,
 		});
 		console.log(medicine);
@@ -149,7 +151,7 @@ app.put('/medicine/:id', async (req, res) => {
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
 		console.log(req.body);
-		const { title, instructions, notes, time, type } = req.body;
+		const { title, instructions, notes, time, type, doctor, doctorSpecialty } = req.body;
 		const { id } = req.params;
 		const medicine = await Medicine.findById(id);
 
@@ -169,6 +171,8 @@ app.put('/medicine/:id', async (req, res) => {
 			notes,
 			time,
 			type,
+			doctor,
+			doctorSpecialty,
 		});
 		res.json(medicine);
 	});
