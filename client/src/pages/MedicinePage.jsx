@@ -25,6 +25,22 @@ const MedicinePage = () => {
 	}
 
 	if (!medicineInfo) return 'no meds';
+
+	// Create an array of key-value pairs
+	const fields = Object.entries({
+		title: medicineInfo.title,
+		type: medicineInfo.type,
+		instructions: medicineInfo.instructions,
+		notes: medicineInfo.notes,
+		doctor: medicineInfo.doctor,
+		doctorSpecialty: medicineInfo.doctorSpecialty,
+	});
+
+	// Filter out any pairs where the value is null or an empty string
+	const filteredFields = fields.filter(
+		([key, value]) => value != null && value !== ''
+	);
+
 	return (
 		<div className='h-screen flex flex-col justify-center items-center'>
 			<div className='card bg-opacity-75 backdrop-filter backdrop-blur-lg border border-gray-500 border-opacity-30 shadow-lg mx-6 rounded-lg p-8'>
@@ -33,21 +49,11 @@ const MedicinePage = () => {
 					{medicineInfo.title}
 				</h1>
 				<ul>
-					<li>
-						<i>Instructions:</i> {medicineInfo.instructions}
-					</li>
-					<li>
-						<i>Notes:</i> {medicineInfo.notes}
-					</li>
-					<li>
-						<i>Medication type:</i> {medicineInfo.type}
-					</li>
-					<li>
-						<i>Prescriber:</i> {medicineInfo.doctor}
-					</li>
-					<li>
-						<i>Prescriber Specialty:</i> {medicineInfo.doctorSpecialty}
-					</li>
+					{filteredFields.map(([key, value]) => (
+						<li key={key}>
+							<i>{key.charAt(0).toUpperCase() + key.slice(1)}:</i> {value}
+						</li>
+					))}
 				</ul>
 				<ul className='flex justify-between mt-3'>
 					<li> {medicineInfo.time.join(' | ')}</li>
@@ -64,7 +70,7 @@ const MedicinePage = () => {
 							fill='none'
 							viewBox='0 0 24 24'
 							strokeWidth={1.5}
-							stroke='currentColor'
+							stroke='					currentColor'
 							className='w-6 h-6'
 						>
 							<path

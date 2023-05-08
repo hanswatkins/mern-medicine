@@ -24,6 +24,8 @@ const EditMedicine = () => {
 				setNotes(medicineInfo.notes);
 				setTime(medicineInfo.time);
 				setType(medicineInfo.type);
+				setDoctor(medicineInfo.doctor);
+				setDoctorSpecialty(medicineInfo.doctorSpecialty);
 			});
 		});
 	}, []);
@@ -37,6 +39,7 @@ const EditMedicine = () => {
 			time,
 			type,
 			doctor,
+			doctorSpecialty,
 		};
 
 		console.log(data);
@@ -161,7 +164,7 @@ const EditMedicine = () => {
 				/>
 
 				<button class='rounded-lg py-4 my-10 flex items-center justify-center transition hover:duration-300 shadow-md hover:shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] text-gray-900'>
-					<p>Create</p>
+					<p>Update</p>
 				</button>
 			</form>
 		</div>

@@ -18,6 +18,7 @@ const CreateMedicine = () => {
 	const TimeCheckBoxes = () => {
 		return (
 			<div className='flex justify-between md:justify-center lg:justify-start lg:gap-10'>
+				<span>Time</span>
 				<label className='flex gap-1 text-gray-600 accent-red-300 p-2 [&>*]:text-xs'>
 					<input
 						className='cursor-pointer'
@@ -71,6 +72,7 @@ const CreateMedicine = () => {
 			time,
 			type,
 			doctor,
+			doctorSpecialty,
 		};
 
 		console.log(data);
@@ -104,21 +106,21 @@ const CreateMedicine = () => {
 				<input
 					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='title'
-					placeholder={'Title'}
+					placeholder={'Title*'}
 					value={title}
 					onChange={(ev) => setTitle(ev.target.value)}
 				/>
 				<input
 					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='instructions'
-					placeholder={'Instructions'}
+					placeholder={'Instructions*'}
 					value={instructions}
 					onChange={(ev) => setInstructions(ev.target.value)}
 				/>
 				<input
 					className='px-3 py-2 rounded-full shadow-inner my-3 border border-gray-300 placeholder:text-gray-500 focus:outline-slate-200'
 					type='notes'
-					placeholder={'Notes'}
+					placeholder={'Notes*'}
 					value={notes}
 					onChange={(ev) => setNotes(ev.target.value)}
 				/>
