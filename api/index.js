@@ -14,10 +14,11 @@ const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfkjahselrkjhk5jh3456435jksdnlgsd';
 
 app.use(
-	cors({
-		credentials: true,
-		origin: 'https://manymeds-frontend.onrender.com',
-	})
+	cors({ credentials: true, origin: 'https://manymeds-frontend.onrender.com' })
+);
+app.options(
+	'*',
+	cors({ credentials: true, origin: 'https://manymeds-frontend.onrender.com' })
 );
 
 app.use(function (req, res, next) {
