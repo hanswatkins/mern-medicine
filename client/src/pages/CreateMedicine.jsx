@@ -18,7 +18,7 @@ const CreateMedicine = () => {
 	const TimeCheckBoxes = () => {
 		return (
 			<div className='flex justify-between md:justify-center lg:justify-start lg:gap-10'>
-				<span>Time</span>
+				<span>Time*</span>
 				<label className='flex gap-1 text-gray-600 accent-red-300 p-2 [&>*]:text-xs'>
 					<input
 						className='cursor-pointer'
@@ -79,7 +79,7 @@ const CreateMedicine = () => {
 
 		try {
 			const response = await axios.post(
-				'http://localhost:4000/medicine',
+				'https://manymeds-backend.onrender.com/api/medicine',
 				data,
 				{
 					withCredentials: true,

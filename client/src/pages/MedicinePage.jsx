@@ -8,7 +8,7 @@ const MedicinePage = () => {
 	const [medicineInfo, setMedicineInfo] = useState(null);
 	const { userInfo } = useContext(UserContext);
 	useEffect(() => {
-		fetch(`http://localhost:4000/medicine/${id}`).then((response) => {
+		fetch(`https://manymeds-backend.onrender.com/api/medicine/${id}`).then((response) => {
 			response.json().then((medicineInfo) => {
 				setMedicineInfo(medicineInfo);
 			});
@@ -16,7 +16,7 @@ const MedicinePage = () => {
 	}, []);
 
 	async function handleDelete(id) {
-		fetch(`http://localhost:4000/delete/${id}`, {
+		fetch(`https://manymeds-backend.onrender.com/api/delete/${id}`, {
 			method: 'DELETE',
 		})
 			.then((response) => response.json())

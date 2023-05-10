@@ -17,17 +17,19 @@ const EditMedicine = () => {
 	const [redirect, setRedirect] = useState(false);
 
 	useEffect(() => {
-		fetch('http://localhost:4000/medicine/' + id).then((response) => {
-			response.json().then((medicineInfo) => {
-				setTitle(medicineInfo.title);
-				setInstructions(medicineInfo.instructions);
-				setNotes(medicineInfo.notes);
-				setTime(medicineInfo.time);
-				setType(medicineInfo.type);
-				setDoctor(medicineInfo.doctor);
-				setDoctorSpecialty(medicineInfo.doctorSpecialty);
-			});
-		});
+		fetch('https://manymeds-backend.onrender.com/api/medicine/' + id).then(
+			(response) => {
+				response.json().then((medicineInfo) => {
+					setTitle(medicineInfo.title);
+					setInstructions(medicineInfo.instructions);
+					setNotes(medicineInfo.notes);
+					setTime(medicineInfo.time);
+					setType(medicineInfo.type);
+					setDoctor(medicineInfo.doctor);
+					setDoctorSpecialty(medicineInfo.doctorSpecialty);
+				});
+			}
+		);
 	}, []);
 
 	async function updateMedicine(ev) {
@@ -45,13 +47,9 @@ const EditMedicine = () => {
 		console.log(data);
 
 		try {
-			const response = await axios.put(
-				'http://localhost:4000/medicine/' + id,
-				data,
-				{
-					withCredentials: true,
-				}
-			);
+			const response = await axios.put('/api/medicine/' + id, data, {
+				withCredentials: true,
+			});
 			if (response.status === 200) {
 				setRedirect(true);
 			}

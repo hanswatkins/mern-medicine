@@ -13,14 +13,16 @@ const mongoURI = process.env.DATABASE_URL;
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfkjahselrkjhk5jh3456435jksdnlgsd';
 
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(
+	cors({ credentials: true, origin: 'https://manymeds-frontend.onrender.com' })
+);
 app.use(express.json());
 app.use(cookieParser());
 
 mongoose.connect(mongoURI);
 
 // register
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
 	const { username, password } = req.body;
 	try {
 		const userDoc = await User.create({
@@ -34,7 +36,7 @@ app.post('/register', async (req, res) => {
 });
 
 // login
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
 	const { username, password } = req.body;
 	const userDoc = await User.findOne({ username });
 	const passOk = bcrypt.compareSync(password, userDoc.password);
@@ -53,7 +55,7 @@ app.post('/login', async (req, res) => {
 });
 
 // get profile
-app.get('/profile', (req, res) => {
+app.get('/api/profile', (req, res) => {
 	const { token } = req.cookies;
 	jwt.verify(token, secret, {}, (err, info) => {
 		if (err) throw err;
@@ -62,17 +64,18 @@ app.get('/profile', (req, res) => {
 });
 
 //log out profile
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
 	res.cookie('token', '').json('ok');
 });
 
 // create medicine
-app.post('/medicine', async (req, res) => {
+app.post('/api/medicine', async (req, res) => {
 	const { token } = req.cookies;
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
 		console.log(req.body);
-		const { title, instructions, notes, time, type, doctor, doctorSpecialty } = req.body;
+		const { title, instructions, notes, time, type, doctor, doctorSpecialty } =
+			req.body;
 		const medicine = await Medicine.create({
 			title,
 			instructions,
@@ -97,7 +100,7 @@ app.post('/medicine', async (req, res) => {
 // 	);
 // });
 
-app.get('/medicine', async (req, res) => {
+app.get('/api/medicine', async (req, res) => {
 	try {
 		const { token } = req.cookies;
 		const { id } = jwt.verify(token, secret);
@@ -124,7 +127,7 @@ app.get('/medicine', async (req, res) => {
 });
 
 // get medicine by ID
-app.get('/medicine/:id', async (req, res) => {
+app.get('/api/medicine/:id', async (req, res) => {
 	const { id } = req.params;
 	const medicine = await Medicine.findById(id).populate(
 		'title',
@@ -139,19 +142,20 @@ app.get('/medicine/:id', async (req, res) => {
 });
 
 // delete medicine by ID
-app.delete('/delete/:id', async (req, res) => {
+app.delete('/api/delete/:id', async (req, res) => {
 	const { id } = req.params;
 	const medicine = await Medicine.findByIdAndDelete(id);
 	res.json(medicine);
 });
 
 // edit medicine
-app.put('/medicine/:id', async (req, res) => {
+app.put('/api/medicine/:id', async (req, res) => {
 	const { token } = req.cookies;
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
 		console.log(req.body);
-		const { title, instructions, notes, time, type, doctor, doctorSpecialty } = req.body;
+		const { title, instructions, notes, time, type, doctor, doctorSpecialty } =
+			req.body;
 		const { id } = req.params;
 		const medicine = await Medicine.findById(id);
 
@@ -178,6 +182,8 @@ app.put('/medicine/:id', async (req, res) => {
 	});
 });
 
-app.listen(4000, () => {
-	console.log('⭐️ Medicine Tracker listening on port 4000 ⭐️');
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+	console.log(`⭐️ Medicine Tracker listening on port: ${PORT}.⭐️`);
 });

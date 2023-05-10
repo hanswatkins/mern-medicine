@@ -8,7 +8,7 @@ const IndexPage = () => {
 	const { userInfo } = useContext(UserContext);
 
 	useEffect(() => {
-		fetch('http://localhost:4000/medicine', {
+		fetch('https://manymeds-backend.onrender.com/api/medicine', {
 			credentials: 'include',
 		})
 			.then((response) => response.json())
