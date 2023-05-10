@@ -16,7 +16,7 @@ const secret = 'asdfkjahselrkjhk5jh3456435jksdnlgsd';
 app.use(
 	cors({
 		credentials: true,
-		origin: 'https://manymeds-frontend.onrender.com/',
+		origin: 'https://manymeds-frontend.onrender.com/*',
 	})
 );
 
