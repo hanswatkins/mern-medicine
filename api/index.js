@@ -16,9 +16,22 @@ const secret = 'asdfkjahselrkjhk5jh3456435jksdnlgsd';
 app.use(
 	cors({
 		credentials: true,
-		origin: 'https://manymeds-frontend.onrender.com/*',
+		origin: 'https://manymeds-frontend.onrender.com/',
 	})
 );
+
+app.use(function (req, res, next) {
+	res.header(
+		'Access-Control-Allow-Origin',
+		'https://manymeds-frontend.onrender.com/'
+	);
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	);
+	next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 
