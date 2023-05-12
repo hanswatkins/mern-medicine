@@ -13,19 +13,14 @@ const mongoURI = process.env.DATABASE_URL;
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfkjahselrkjhk5jh3456435jksdnlgsd';
 
-app.use(
-	cors({ credentials: true, origin: 'https://manymeds-frontend.onrender.com' })
-);
+app.use(cors({ credentials: true, origin: 'https://www.manymeds.net' }));
 app.options(
 	'*',
-	cors({ credentials: true, origin: 'https://manymeds-frontend.onrender.com' })
+	cors({ credentials: true, origin: 'https://www.manymeds.net' })
 );
 
 app.use(function (req, res, next) {
-	res.header(
-		'Access-Control-Allow-Origin',
-		'https://manymeds-frontend.onrender.com'
-	);
+	res.header('Access-Control-Allow-Origin', 'https://www.manymeds.net');
 	res.header(
 		'Access-Control-Allow-Headers',
 		'Origin, X-Requested-With, Content-Type, Accept'
@@ -36,7 +31,13 @@ app.use(function (req, res, next) {
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect(mongoURI);
+mongoose.connect(mongoURI, (err) => {
+	if (err) {
+		console.error('❌ Failed to connect to MongoDB:', err);
+	} else {
+		console.log('✅ Connected to MongoDB successfully');
+	}
+});
 
 // register
 app.post('/api/register', async (req, res) => {
