@@ -63,14 +63,19 @@ mongoose
 		// get profile
 		app.get('/api/profile', (req, res) => {
 			const { token } = req.cookies;
+			if (!token) {
+				return res.status(401).json({ error: 'Unauthorized' });
+			}
+
 			jwt.verify(token, secret, {}, (err, info) => {
 				if (err) {
-					console.error(err);
-
-					res.status(401).json({ error: 'Unauthorized' });
-				} else {
-					res.json(info);
+					if (err.name === 'JsonWebTokenError') {
+						return res.status(401).json({ error: 'Invalid token' });
+					}
+					return res.status(500).json({ error: 'Internal server error' });
 				}
+
+				res.json(info);
 			});
 		});
 
