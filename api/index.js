@@ -19,15 +19,6 @@ app.options(
 	cors({ credentials: true, origin: 'https://www.manymeds.net' })
 );
 
-app.use(function (req, res, next) {
-	res.header('Access-Control-Allow-Origin', 'https://www.manymeds.net');
-	res.header(
-		'Access-Control-Allow-Headers',
-		'Origin, X-Requested-With, Content-Type, Accept'
-	);
-	next();
-});
-
 app.use(express.json());
 app.use(cookieParser());
 
@@ -73,55 +64,63 @@ mongoose
 		app.get('/api/profile', (req, res) => {
 			const { token } = req.cookies;
 			jwt.verify(token, secret, {}, (err, info) => {
-				if (err) throw err;
-				res.json(info);
+				if (err) {
+					console.error(err);
+
+					res.status(401).json({ error: 'Unauthorized' });
+				} else {
+					res.json(info);
+				}
 			});
 		});
 
-		//log out profile
+		// Log out profile
 		app.post('/api/logout', (req, res) => {
 			res.cookie('token', '').json('ok');
 		});
 
-		// create medicine
+		// Create medicine
 		app.post('/api/medicine', async (req, res) => {
-			const { token } = req.cookies;
-			jwt.verify(token, secret, {}, async (err, info) => {
-				if (err) throw err;
-				console.log(req.body);
-				const {
-					title,
-					instructions,
-					notes,
-					time,
-					type,
-					doctor,
-					doctorSpecialty,
-				} = req.body;
-				const medicine = await Medicine.create({
-					title,
-					instructions,
-					notes,
-					time,
-					type,
-					doctor,
-					doctorSpecialty,
-					patient: info.id,
+			try {
+				const { token } = req.cookies;
+				jwt.verify(token, secret, {}, async (err, info) => {
+					if (err) {
+						console.error(err);
+						return res.status(401).json({ error: 'Unauthorized' });
+					}
+
+					console.log(req.body);
+					const {
+						title,
+						instructions,
+						notes,
+						time,
+						type,
+						doctor,
+						doctorSpecialty,
+					} = req.body;
+
+					const medicine = await Medicine.create({
+						title,
+						instructions,
+						notes,
+						time,
+						type,
+						doctor,
+						doctorSpecialty,
+						patient: info.id,
+					});
+
+					console.log(medicine);
+					res.json({ medicine });
 				});
-				console.log(medicine);
-				res.json({ medicine });
-			});
+			} catch (err) {
+				console.error(err);
+				res.status(500).json('Internal server error');
+			}
 		});
 
-		// // get medicine
-		// app.get('/medicine', async (req, res) => {
-		// 	res.json(
-		// 		await Medicine.find()
-		// 			.populate('title' /*['username']*/)
-		// 			.limit(20)
-		// 	);
-		// });
-
+		// Get medicine
 		app.get('/api/medicine', async (req, res) => {
 			try {
 				const { token } = req.cookies;
@@ -138,6 +137,7 @@ mongoose
 						.populate('title' /*['username']*/)
 						.sort({ createdAt: -1 })
 						.limit(20);
+
 					res.json(userSpecificMedicineData);
 				} else {
 					res.status(400).json('User not found');
@@ -148,67 +148,100 @@ mongoose
 			}
 		});
 
-		// get medicine by ID
+		// Get medicine by ID
 		app.get('/api/medicine/:id', async (req, res) => {
-			const { id } = req.params;
-			const medicine = await Medicine.findById(id).populate(
-				'title',
-				'instructions'
-				// 'notes',
-				// 'time',
-				// 'type',
-				// ['patient']
-			);
-
-			res.json(medicine);
-		});
-
-		// delete medicine by ID
-		app.delete('/api/delete/:id', async (req, res) => {
-			const { id } = req.params;
-			const medicine = await Medicine.findByIdAndDelete(id);
-			res.json(medicine);
-		});
-
-		// edit medicine
-		app.put('/api/medicine/:id', async (req, res) => {
-			const { token } = req.cookies;
-			jwt.verify(token, secret, {}, async (err, info) => {
-				if (err) throw err;
-				console.log(req.body);
-				const {
-					title,
-					instructions,
-					notes,
-					time,
-					type,
-					doctor,
-					doctorSpecialty,
-				} = req.body;
+			try {
 				const { id } = req.params;
-				const medicine = await Medicine.findById(id);
+				const medicine = await Medicine.findById(id).populate(
+					'title',
+					'instructions'
+					// 'notes',
+					// 'time',
+					// 'type',
+					// ['patient']
+				);
 
-				const isPatient =
-					JSON.stringify(medicine.patient) === JSON.stringify(info.id);
-
-				if (!isPatient) {
-					return res
-						.status(400)
-						.json(
-							'This medicine does not belong to you, please contact hanswatkins@gmail.com about this error'
-						);
+				if (!medicine) {
+					return res.status(404).json('Medicine not found');
 				}
-				await medicine.updateOne({
-					title,
-					instructions,
-					notes,
-					time,
-					type,
-					doctor,
-					doctorSpecialty,
-				});
+
 				res.json(medicine);
-			});
+			} catch (err) {
+				console.error(err);
+				res.status(500).json('Internal server error');
+			}
+		});
+
+		// Delete medicine by ID
+		app.delete('/api/delete/:id', async (req, res) => {
+			try {
+				const { id } = req.params;
+				const medicine = await Medicine.findByIdAndDelete(id);
+
+				if (!medicine) {
+					return res.status(404).json('Medicine not found');
+				}
+
+				res.json(medicine);
+			} catch (err) {
+				console.error(err);
+				res.status(500).json('Internal server error');
+			}
+		});
+
+		// Edit medicine
+		app.put('/api/medicine/:id', async (req, res) => {
+			try {
+				const { token } = req.cookies;
+				jwt.verify(token, secret, {}, async (err, info) => {
+					if (err) {
+						console.error(err);
+						return res.status(401).json({ error: 'Unauthorized' });
+					}
+
+					console.log(req.body);
+					const {
+						title,
+						instructions,
+						notes,
+						time,
+						type,
+						doctor,
+						doctorSpecialty,
+					} = req.body;
+					const { id } = req.params;
+					const medicine = await Medicine.findById(id);
+					if (!medicine) {
+						return res.status(404).json('Medicine not found');
+					}
+
+					const isPatient =
+						JSON.stringify(medicine.patient) === JSON.stringify(info.id);
+
+					if (!isPatient) {
+						return res
+							.status(400)
+							.json(
+								'This medicine does not belong to you, please contact hanswatkins@gmail.com about this error'
+							);
+					}
+
+					await medicine.updateOne({
+						title,
+						instructions,
+						notes,
+						time,
+						type,
+						doctor,
+						doctorSpecialty,
+					});
+
+					res.json(medicine);
+				});
+			} catch (err) {
+				console.error(err);
+				res.status(500).json('Internal server error');
+			}
 		});
 
 		const PORT = process.env.PORT || 4000;
