@@ -9,7 +9,7 @@ const AmMeds = () => {
 	const { userInfo } = useContext(UserContext);
 
 	useEffect(() => {
-		fetch('https://manymeds-backend.onrender.com/api/medicine', {
+		fetch('https://www.manymeds.net/api/medicine', {
 			credentials: 'include',
 		})
 			.then((response) => response.json())
