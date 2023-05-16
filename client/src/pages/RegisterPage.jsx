@@ -7,7 +7,7 @@ const RegisterPage = () => {
 	async function register(ev) {
 		ev.preventDefault();
 
-		const response = await fetch('https://www.manymeds.net/api/register', {
+		const response = await fetch('https://api.manymeds.net/register', {
 			method: 'POST',
 			body: JSON.stringify({ username, password }),
 			headers: { 'Content-Type': 'application/json' },

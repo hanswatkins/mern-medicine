@@ -29,10 +29,15 @@ const Medicine = ({
 	);
 
 	return (
-		<Link to={`/medicine/${_id}`} className='rounded-2xl p-3 shadow-md mx-6 mt-4 bg-clip-padding backdrop-filter backdrop-blur-sm border border-gray-50 border-opacity-30 w-screen'>
+		<Link
+			to={`/medicine/${_id}`}
+			className='rounded-2xl p-3 shadow-md mx-6 mt-4 bg-clip-padding backdrop-filter backdrop-blur-sm border border-gray-50 border-opacity-30 w-screen'
+		>
 			<div>
 				<div className=''>
-					<h2 className='text-xl font-medium'>{title} -- {type}</h2>
+					<h2 className='text-xl font-medium'>
+						{title} -- {type}
+					</h2>
 
 					<div className='medicine-details'>
 						{filteredFields.map(([key, value]) => (

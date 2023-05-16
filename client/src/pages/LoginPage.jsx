@@ -12,7 +12,7 @@ const LoginPage = () => {
 	// login function
 	async function login(ev) {
 		ev.preventDefault();
-		const response = await fetch('https://www.manymeds.net/api/login', {
+		const response = await fetch('https://api.manymeds.net/login', {
 			method: 'POST',
 			body: JSON.stringify({ username, password }),
 			headers: { 'Content-Type': 'application/json' },

@@ -28,7 +28,7 @@ mongoose
 		console.log('✅ Connected to MongoDB successfully');
 
 		// register
-		app.post('/api/register', async (req, res) => {
+		app.post('/register', async (req, res) => {
 			const { username, password } = req.body;
 			try {
 				const userDoc = await User.create({
@@ -42,7 +42,7 @@ mongoose
 		});
 
 		// login
-		app.post('/api/login', async (req, res) => {
+		app.post('/login', async (req, res) => {
 			const { username, password } = req.body;
 			const userDoc = await User.findOne({ username });
 			const passOk = bcrypt.compareSync(password, userDoc.password);
@@ -61,7 +61,7 @@ mongoose
 		});
 
 		// get profile
-		app.get('/api/profile', (req, res) => {
+		app.get('/profile', (req, res) => {
 			const { token } = req.cookies;
 			if (!token) {
 				return res.status(401).json({ error: 'Unauthorized' });
@@ -80,12 +80,12 @@ mongoose
 		});
 
 		// Log out profile
-		app.post('/api/logout', (req, res) => {
+		app.post('/logout', (req, res) => {
 			res.cookie('token', '').json('ok');
 		});
 
 		// Create medicine
-		app.post('/api/medicine', async (req, res) => {
+		app.post('/medicine', async (req, res) => {
 			try {
 				const { token } = req.cookies;
 				jwt.verify(token, secret, {}, async (err, info) => {
@@ -126,7 +126,7 @@ mongoose
 		});
 
 		// Get medicine
-		app.get('/api/medicine', async (req, res) => {
+		app.get('/medicine', async (req, res) => {
 			try {
 				const { token } = req.cookies;
 				const { id } = jwt.verify(token, secret);
@@ -154,7 +154,7 @@ mongoose
 		});
 
 		// Get medicine by ID
-		app.get('/api/medicine/:id', async (req, res) => {
+		app.get('/medicine/:id', async (req, res) => {
 			try {
 				const { id } = req.params;
 				const medicine = await Medicine.findById(id).populate(
@@ -178,7 +178,7 @@ mongoose
 		});
 
 		// Delete medicine by ID
-		app.delete('/api/delete/:id', async (req, res) => {
+		app.delete('/delete/:id', async (req, res) => {
 			try {
 				const { id } = req.params;
 				const medicine = await Medicine.findByIdAndDelete(id);
@@ -195,7 +195,7 @@ mongoose
 		});
 
 		// Edit medicine
-		app.put('/api/medicine/:id', async (req, res) => {
+		app.put('/medicine/:id', async (req, res) => {
 			try {
 				const { token } = req.cookies;
 				jwt.verify(token, secret, {}, async (err, info) => {

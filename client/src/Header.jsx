@@ -7,7 +7,7 @@ const Header = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch('https://manymeds-backend.onrender.com/api/profile', {
+		fetch('https://api.manymeds.net/profile', {
 			credentials: 'include',
 		}).then((response) => {
 			response.json().then((userInfo) => {
@@ -17,7 +17,7 @@ const Header = () => {
 	}, []);
 
 	function logout() {
-		fetch('https://manymeds-backend.onrender.com/api/logout', {
+		fetch('https://api.manymeds.net/logout', {
 			credentials: 'include',
 			method: 'POST',
 		});

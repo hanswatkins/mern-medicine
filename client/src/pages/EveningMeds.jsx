@@ -9,7 +9,7 @@ const AmMeds = () => {
 	const { userInfo } = useContext(UserContext);
 
 	useEffect(() => {
-		fetch('https://www.manymeds.net/api/medicine', {
+		fetch('https://api.manymeds.net/medicine', {
 			credentials: 'include',
 		})
 			.then((response) => response.json())

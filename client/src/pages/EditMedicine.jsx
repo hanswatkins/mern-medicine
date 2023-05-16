@@ -17,7 +17,7 @@ const EditMedicine = () => {
 	const [redirect, setRedirect] = useState(false);
 
 	useEffect(() => {
-		fetch('https://www.manymeds.net/api/medicine' + id).then(
+		fetch('https://api.manymeds.net/medicine' + id).then(
 			(response) => {
 				response.json().then((medicineInfo) => {
 					setTitle(medicineInfo.title);

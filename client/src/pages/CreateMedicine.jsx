@@ -79,7 +79,7 @@ const CreateMedicine = () => {
 
 		try {
 			const response = await axios.post(
-				'https://www.manymeds.net/api/medicine',
+				'https://api.manymeds.net/medicine',
 				data,
 				{
 					withCredentials: true,
