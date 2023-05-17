@@ -24,7 +24,7 @@ const MedicinePage = () => {
 			.catch((error) => console.log(error));
 	}
 
-	if (!medicineInfo) return 'no meds';
+	if (!medicineInfo) return <div>Loading, please wait...</div>;
 
 	// Create an array of key-value pairs
 	const fields = Object.entries({
