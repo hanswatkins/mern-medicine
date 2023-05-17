@@ -2,13 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import Medicine from '../Medicine';
+import baseURL from '../BaseUrl';
 
 const IndexPage = () => {
 	const [medicineInfo, setMedicine] = useState([]);
 	const { userInfo } = useContext(UserContext);
 
 	useEffect(() => {
-		fetch('https://api.manymeds.net/medicine', {
+		fetch(baseURL + '/medicine', {
 			credentials: 'include',
 		})
 			.then((response) => response.json())
