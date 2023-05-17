@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import baseURL from '../BaseUrl';
 
 const RegisterPage = () => {
 	const [username, setUsername] = useState('');
@@ -7,7 +8,7 @@ const RegisterPage = () => {
 	async function register(ev) {
 		ev.preventDefault();
 
-		const response = await fetch('https://api.manymeds.net/register', {
+		const response = await fetch(baseURL + '/register', {
 			method: 'POST',
 			body: JSON.stringify({ username, password }),
 			headers: { 'Content-Type': 'application/json' },

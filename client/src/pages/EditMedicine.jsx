@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import baseURL from '../BaseUrl';
 
 const timeOptions = ['Morning', 'Afternoon', 'Evening'];
 const typeOptions = ['Homeopathic', 'Medication', 'Supplement'];
@@ -17,7 +18,7 @@ const EditMedicine = () => {
 	const [redirect, setRedirect] = useState(false);
 
 	useEffect(() => {
-		fetch('https://api.manymeds.net/medicine/' + id).then((response) => {
+		fetch(baseURL + '/medicine/' + id).then((response) => {
 			response.json().then((medicineInfo) => {
 				setTitle(medicineInfo.title);
 				setInstructions(medicineInfo.instructions);
@@ -45,13 +46,9 @@ const EditMedicine = () => {
 		console.log(data);
 
 		try {
-			const response = await axios.put(
-				'https://api.manymeds.net/medicine/' + id,
-				data,
-				{
-					withCredentials: true,
-				}
-			);
+			const response = await axios.put(baseURL + '/medicine/' + id, data, {
+				withCredentials: true,
+			});
 			if (response.status === 200) {
 				setRedirect(true);
 			}

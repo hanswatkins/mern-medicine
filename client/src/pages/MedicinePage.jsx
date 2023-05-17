@@ -2,13 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import { Link } from 'react-router-dom';
+import baseURL from '../BaseUrl';
 
 const MedicinePage = () => {
 	const { id } = useParams();
 	const [medicineInfo, setMedicineInfo] = useState(null);
 	const { userInfo } = useContext(UserContext);
 	useEffect(() => {
-		fetch(`https://api.manymeds.net/medicine/${id}`).then((response) => {
+		fetch(baseURL + `/medicine/${id}`).then((response) => {
 			response.json().then((medicineInfo) => {
 				setMedicineInfo(medicineInfo);
 			});
@@ -16,7 +17,7 @@ const MedicinePage = () => {
 	}, []);
 
 	async function handleDelete(id) {
-		fetch(`https://api.manymeds.net/delete/${id}`, {
+		fetch(baseURL + `/delete/${id}`, {
 			method: 'DELETE',
 		})
 			.then((response) => response.json())

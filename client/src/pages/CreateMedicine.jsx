@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import baseURL from '../BaseUrl';
 
 const timeOptions = ['Morning', 'Afternoon', 'Evening'];
 const typeOptions = ['Homeopathic', 'Medication', 'Supplement'];
@@ -78,13 +79,9 @@ const CreateMedicine = () => {
 		console.log(data);
 
 		try {
-			const response = await axios.post(
-				'https://api.manymeds.net/medicine',
-				data,
-				{
-					withCredentials: true,
-				}
-			);
+			const response = await axios.post(baseURL + '/medicine', data, {
+				withCredentials: true,
+			});
 			if (response.status === 200) {
 				setRedirect(true);
 			}

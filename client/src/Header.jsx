@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
+import baseURL from './BaseUrl';
 
 const Header = () => {
 	const { setUserInfo, userInfo } = useContext(UserContext);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch('https://api.manymeds.net/profile', {
+		fetch(baseURL + '/profile', {
 			credentials: 'include',
 		}).then((response) => {
 			response.json().then((userInfo) => {
@@ -17,7 +18,7 @@ const Header = () => {
 	}, []);
 
 	function logout() {
-		fetch('https://api.manymeds.net/logout', {
+		fetch(baseURL + '/logout', {
 			credentials: 'include',
 			method: 'POST',
 		});

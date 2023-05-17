@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
+import baseURL from '../BaseUrl';
 
 const LoginPage = () => {
 	const [username, setUsername] = useState('');
@@ -12,7 +13,7 @@ const LoginPage = () => {
 	// login function
 	async function login(ev) {
 		ev.preventDefault();
-		const response = await fetch('https://api.manymeds.net/login', {
+		const response = await fetch(baseURL + '/login', {
 			method: 'POST',
 			body: JSON.stringify({ username, password }),
 			headers: { 'Content-Type': 'application/json' },
