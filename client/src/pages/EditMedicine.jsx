@@ -45,7 +45,7 @@ const EditMedicine = () => {
 		console.log(data);
 
 		try {
-			const response = await axios.put('/api/medicine/' + id, data, {
+			const response = await axios.put('/medicine/' + id, data, {
 				withCredentials: true,
 			});
 			if (response.status === 200) {
