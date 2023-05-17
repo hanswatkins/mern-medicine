@@ -17,19 +17,17 @@ const EditMedicine = () => {
 	const [redirect, setRedirect] = useState(false);
 
 	useEffect(() => {
-		fetch('https://api.manymeds.net/medicine' + id).then(
-			(response) => {
-				response.json().then((medicineInfo) => {
-					setTitle(medicineInfo.title);
-					setInstructions(medicineInfo.instructions);
-					setNotes(medicineInfo.notes);
-					setTime(medicineInfo.time);
-					setType(medicineInfo.type);
-					setDoctor(medicineInfo.doctor);
-					setDoctorSpecialty(medicineInfo.doctorSpecialty);
-				});
-			}
-		);
+		fetch('https://api.manymeds.net/medicine/' + id).then((response) => {
+			response.json().then((medicineInfo) => {
+				setTitle(medicineInfo.title);
+				setInstructions(medicineInfo.instructions);
+				setNotes(medicineInfo.notes);
+				setTime(medicineInfo.time);
+				setType(medicineInfo.type);
+				setDoctor(medicineInfo.doctor);
+				setDoctorSpecialty(medicineInfo.doctorSpecialty);
+			});
+		});
 	}, []);
 
 	async function updateMedicine(ev) {
