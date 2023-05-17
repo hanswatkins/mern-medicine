@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const User = require('./models/User');
 const Medicine = require('./models/Medicine');
 require('dotenv').config();
-const mongoURI = process.env.DATABASE_URL;
+const mongoURI = process.env.DATABASE_URI;
 
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfkjahselrkjhk5jh3456435jksdnlgsd';

@@ -45,12 +45,12 @@ This is a full-stack web application built using the MERN stack (MongoDB, Expres
    ```
 
 4. Set up environment variables:
+
    - Create a `.env` file in the /api directory.
    - Add the following environment variables to the file:
 
      ```
-     MONGODB_URI=<your_mongodb_uri>
-     SECRET_KEY=<your_secret_key>
+     DATABASE_URI=paste-your-mongodb-connection-string-here
      ```
 
 5. Start the development server:
