@@ -45,7 +45,7 @@ This is a full-stack web application built using the MERN stack (MongoDB, Expres
    ```
 
 4. Set up environment variables:
-   - Create a `.env` file in the root of the project.
+   - Create a `.env` file in the /api directory.
    - Add the following environment variables to the file:
 
      ```
