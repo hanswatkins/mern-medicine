@@ -45,9 +45,13 @@ const EditMedicine = () => {
 		console.log(data);
 
 		try {
-			const response = await axios.put('/medicine/' + id, data, {
-				withCredentials: true,
-			});
+			const response = await axios.put(
+				'https://api.manymeds.net/medicine/' + id,
+				data,
+				{
+					withCredentials: true,
+				}
+			);
 			if (response.status === 200) {
 				setRedirect(true);
 			}
