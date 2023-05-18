@@ -22,7 +22,23 @@ const IndexPage = () => {
 	}, []);
 
 	if (!userInfo) {
-		return <div className='text-4xl font-bold'>Welcome to ManyMeds.</div>;
+		return (
+			<div className='flex flex-col justify-center h-screen-header items-center gap-1 lg:gap-3'>
+				<h1 className='text-5xl text-center lg:text-7xl font-bold opacity-70'>
+					Welcome to ManyMeds.
+				</h1>
+				<p className='lg:text-2xl font-extralight'>
+					<Link to={'/login'} className=' hover:text-green-500 italic'>
+						Log in
+					</Link>{' '}
+					or{' '}
+					<Link to={'/register'} className=' hover:text-green-500 italic'>
+						Register
+					</Link>{' '}
+					to get started
+				</p>
+			</div>
+		);
 	} else {
 		return (
 			<div className='my-8 py-2'>

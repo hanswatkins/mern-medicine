@@ -5,7 +5,11 @@ export default {
 	theme: {
 		extend: {
 			animation: {
-				blob: 'blob 10s infinite',
+				blob: 'blob 20s infinite',
+				blob2: 'blob 18s infinite',
+				blob3: 'blob 16s infinite',
+				blob4: 'blob 24s infinite',
+				blob5: 'blob 26s infinite',
 			},
 			fontFamily: {
 				sans: ['Proxima Nova'],

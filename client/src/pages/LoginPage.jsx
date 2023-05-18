@@ -36,7 +36,7 @@ const LoginPage = () => {
 
 	return (
 		<form
-			className='h-[calc(100vh-100px)] flex flex-col justify-center px-16 py-24 lg:mx-auto lg:max-w-lg'
+			className='h-screen-header flex flex-col justify-center px-16 py-24 lg:mx-auto lg:max-w-lg'
 			onSubmit={login}
 		>
 			<h1 className='font-light text-xl text-center mt-7'>

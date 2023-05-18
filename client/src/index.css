@@ -15,3 +15,7 @@ div.background {
 * {
 	user-select: none;
 }
+
+.h-screen-header {
+	height: 84vh;
+}
