@@ -21,7 +21,7 @@ const IndexPage = () => {
 			});
 	}, []);
 
-	if (!userInfo) {
+	if (userInfo.username === undefined) {
 		return (
 			<div className='flex flex-col justify-center h-screen-header items-center gap-1 lg:gap-3'>
 				<h1 className='text-5xl text-center lg:text-7xl font-bold opacity-70'>
