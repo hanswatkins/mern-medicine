@@ -1,3 +1,3 @@
-const baseURL = 'http://api.manymeds.net'
+const baseURL = 'https://api.manymeds.net'
 
 export default baseURL
