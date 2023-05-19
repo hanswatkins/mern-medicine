@@ -15,7 +15,7 @@ export default {
 				sans: ['Proxima Nova'],
 			},
 			keyframes: {
-				blob: {
+				blob10: {
 					'0%, 100%': {
 						transform: 'translate(0, 0) scale(1)',
 					},
