@@ -25,7 +25,7 @@ const Medicine = ({
 
 	// Filter out any pairs where the value is null or an empty string
 	const filteredFields = fields.filter(
-		([key, value]) => value != null && value !== ''
+		([key, value]) => value !== null && value !== '' && key !== 'title'
 	);
 
 	return (
